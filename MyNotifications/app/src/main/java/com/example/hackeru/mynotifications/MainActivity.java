@@ -10,6 +10,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.hackeru.mynotifications.grootNtf.GrootReceiver;
+import com.example.hackeru.mynotifications.grootNtf.GrootService;
+
 public class MainActivity extends Activity {
     NotificationManager ntfMngr; //Notification manager - system service - used for managing notifications
     public static final int NTF_ONE = 1; //Our custom notification ID
@@ -33,8 +36,13 @@ public class MainActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        //dugma
         startService(new Intent(this, NtfService.class));
         registerReceiver(new NtfReceiver(), new IntentFilter("MyBGAction")); //register to broadcast receiver
+
+        //exercise
+        registerReceiver(new GrootReceiver(), new IntentFilter(GrootService.ACTION));
+        startService(new Intent(this, GrootService.class));
     }
 
     public void myNotify(View view) {
