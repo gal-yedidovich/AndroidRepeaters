@@ -1,0 +1,11 @@
+{
+  "ingredients": {
+    "eggs": 2,
+    "cup flour": 2,
+    "milk": 2,
+    "baking powder": 1
+  },
+  "time": 60,
+  "heat": 180,
+  "isDairy": true
+}

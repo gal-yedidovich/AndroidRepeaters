@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         TextView ttl = findViewById(R.id.ttl);
         //ttl.setText(queryName("2"));
         ttl.setText(queryName("-1 OR 1=1")); //SQL Injection
+        ttl.setText(queryNameSafe("-1 OR 1=1")); //No SQL Injection - prepared statement protects us
     }
 
     private void example1() {
@@ -61,6 +62,17 @@ public class MainActivity extends AppCompatActivity {
         Cursor results = db.rawQuery(sql, null);
         String name = null; //default value
         if (results.moveToFirst())  //if results is not empty
+            name = results.getString(0); //return first result (can only be one - id is unique)
+
+        results.close(); //cleanup
+        return name;
+    }
+
+    private String queryNameSafe(String id) {
+        String sql = "SELECT name FROM users WHERE id=?";//prepared statement
+        Cursor results = db.rawQuery(sql, new String[]{ id });
+        String name = null; //default value
+        if(results.moveToFirst()) //if results is not empty
             name = results.getString(0); //return first result (can only be one - id is unique)
 
         results.close(); //cleanup
